@@ -2,12 +2,12 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "esnext",
+    "target": "ES2019",
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "lib": ["es2015"]
+  "lib": ["ES2019"]
 }

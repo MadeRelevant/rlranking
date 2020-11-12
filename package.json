@@ -4,11 +4,18 @@
   "description": "A RL bot to keep track of ranking",
   "main": "dist/index.js",
   "scripts": {
-    "start:dev": "ts-node-dev --respawn --inspect=0.0.0.0:9229 -- index.ts"
+    "start:dev": "ts-node-dev --respawn --inspect=0.0.0.0:9229 -- index.ts",
+    "test": "jasmine-ts --config=jasmine.json",
+    "coverage": "nyc -r lcov -e .ts -x \"spec/*.spec.ts\" npm run test"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/jasmine": "^3.6.1",
+    "jasmine": "^3.6.3",
+    "jasmine-spec-reporter": "^6.0.0",
+    "jasmine-ts": "^0.3.0",
     "ts-node-dev": "^1.0.0",
     "tslint": "^6.1.3",
     "typescript": "^4.0.5"
@@ -18,8 +25,10 @@
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
     "dotenv-defaults": "^2.0.1",
+    "nyc": "^15.1.0",
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^8.10.2",
     "tsyringe": "^4.4.0"
   }
 }

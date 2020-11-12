@@ -6,7 +6,7 @@ services:
     depends_on:
       - mongodb
     volumes:
-      - ./bot:/code
+      - ./:/code
     ports:
       - "9229:9229"
     command: "npm run start:dev"

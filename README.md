@@ -1,4 +1,7 @@
+[![Coverage Status](https://coveralls.io/repos/github/MadeRelevant/rlranking/badge.svg?branch=master)](https://coveralls.io/github/MadeRelevant/rlranking?branch=master)
+
 # Rocket league ranking tracker bot
+
 
 A NodeJS bot that keeps track of wins and losses of Rocket League 1v1 games within a discord server.
 
