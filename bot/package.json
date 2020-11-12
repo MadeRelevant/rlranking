@@ -4,7 +4,7 @@
   "description": "A RL bot to keep track of ranking",
   "main": "dist/index.js",
   "scripts": {
-    "start:dev": "ts-node-dev --respawn --inspect=0.0.0.0:9229 --debug -- index.ts"
+    "start:dev": "ts-node-dev --respawn --inspect=0.0.0.0:9229 -- index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +18,8 @@
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
     "dotenv-defaults": "^2.0.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.4.0"
   }
 }

@@ -1,35 +1,26 @@
-import {Client, Message} from "discord.js";
-import {CommandManager} from "./command/command-manager";
 import {ApplicationConfig} from "./application/config";
 import {Dispatcher} from "./dispatcher";
+import {container} from "tsyringe";
+import {Bot} from "./bot";
 
 export class Application {
-    private client: Client;
-    public readonly commands = new CommandManager();
+    private bot: Bot;
     private dispatcher: Dispatcher;
 
     constructor(public readonly config: ApplicationConfig) {
-        this.dispatcher = new Dispatcher(this.commands, this.config.prefix);
+
+        container.register("config", {
+            useValue: config
+        });
+
+        this.bot = container.resolve(Bot);
+        this.dispatcher = container.resolve(Dispatcher);
     }
 
     public async init()
     {
-        await this.initClient();
+        await this.bot.init();
 
         // TODO init mongo db connection etc
-    }
-
-    private async initClient() {
-        this.client = new Client();
-
-        this.client.on('ready', () => {
-            console.log(`Logged in as ${this.client.user.tag}!`);
-        });
-
-        this.client.on('message', async (msg) => {
-            await this.dispatcher.dispatch(msg);
-        });
-
-        await this.client.login(this.config.botToken);
     }
 }

@@ -1,9 +1,16 @@
 import {CommandManager} from "./command/command-manager";
 import {Message} from "discord.js";
+import {inject, singleton} from "tsyringe";
+import {ApplicationConfig} from "./application/config";
 
+@singleton()
 export class Dispatcher {
 
-    constructor(private commands: CommandManager, private prefix: string) {}
+    private readonly prefix: string
+
+    constructor(private commands: CommandManager, @inject("config") config: ApplicationConfig) {
+        this.prefix = config.prefix;
+    }
 
     public async dispatch(msg: Message): Promise<void> {
 
@@ -27,7 +34,7 @@ export class Dispatcher {
 
     private accept(parts: string[]): boolean {
         let isTargetedToThisBot = parts.length > 1 && parts[0] === this.prefix;
-        if (isTargetedToThisBot) {
+        if (!isTargetedToThisBot) {
             return false;
         }
 

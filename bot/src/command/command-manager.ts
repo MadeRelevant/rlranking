@@ -1,8 +1,11 @@
 import {Command} from "./command";
+import {injectAll, singleton} from "tsyringe";
 
+@singleton()
 export class CommandManager {
 
-    private commands: Command[] = [];
+    constructor(@injectAll("commands") private readonly commands: Command[]) {
+    }
 
     public find(name: string): Command | null {
         return this.commands.find(oneOf => oneOf.name === name) || null;
