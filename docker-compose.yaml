@@ -1,0 +1,22 @@
+version: '3'
+services:
+  bot:
+    image: node:12-alpine
+    working_dir: /code
+    depends_on:
+      - mongodb
+    volumes:
+      - ./bot:/code
+    ports:
+      - "9229:9229"
+    command: "npm run start:dev"
+    user: root
+    networks:
+      - public
+  mongodb:
+    image: library/mongo:latest
+    networks:
+      - public
+networks:
+  public:
+    driver: bridge
