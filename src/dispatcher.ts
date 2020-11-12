@@ -14,13 +14,13 @@ export class Dispatcher {
 
     public async dispatch(msg: Message): Promise<void> {
 
-        const parts = msg.content.split(' ');
+        const parts = msg.content.split(' ').filter(oneOf => !! oneOf.trim());
 
         if (!this.isPrefixMatching(parts)) {
             return;
         }
 
-        const commandName = parts[1].trim();
+        const commandName = (parts[1] || '').trim();
         const args = parts.slice(2);
 
         let command = this.findCommandByName(commandName);
@@ -32,7 +32,7 @@ export class Dispatcher {
     }
 
     private isPrefixMatching(parts: string[]): boolean {
-        return parts.length > 1 && parts[0] === this.prefix;
+        return parts.length > 0 && parts[0] === this.prefix;
     }
 
     private findCommandByName(name: string): Command | null {

@@ -1,4 +1,4 @@
-import {Client} from "discord.js";
+import {Client, User} from "discord.js";
 import {inject, singleton} from "tsyringe";
 import {Dispatcher} from "./dispatcher";
 import {ApplicationConfig} from "./application/config";
@@ -21,5 +21,23 @@ export class Bot extends Client {
         });
 
         await this.login(this.config.botToken);
+    }
+
+    public async getUserFromMention(mention: string): Promise<User | null> {
+        if (!mention) {
+            return null;
+        }
+
+        if (!mention.startsWith('<@') || !mention.endsWith('>')) {
+            return null;
+        }
+
+        mention = mention.slice(2, -1);
+
+        if (mention.startsWith('!')) {
+            mention = mention.slice(1);
+        }
+
+        return this.users.cache.get(mention) || await this.users.fetch(mention);
     }
 }

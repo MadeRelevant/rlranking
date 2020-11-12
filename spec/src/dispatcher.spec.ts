@@ -60,9 +60,9 @@ describe('dispatcher', () => {
         expect(command.run).toHaveBeenCalledWith(message, ['arg1', 'arg2']);
     });
 
-    it ('falls back on help command when no matching command was found', () => {
+    it ('strips empty arguments to command', () => {
         const command = {
-            name: 'help',
+            name: 'test',
             run: createSpy('run') as any
         } as Command;
 
@@ -72,12 +72,49 @@ describe('dispatcher', () => {
         });
 
         const message = {
-            content: 'myprefix some-non-existing-command'
+            content: 'myprefix test arg1 arg2  arg3'
         } as Message;
 
         cmd.dispatch(message);
-        expect(command.run).toHaveBeenCalledWith(message, []);
+        expect(command.run).toHaveBeenCalledWith(message, ['arg1', 'arg2', 'arg3']);
     });
+
+    describe ('fallback to help command', () => {
+
+        let helpCommand;
+        let dispatcher;
+
+        beforeEach(() => {
+            helpCommand = {
+                name: 'help',
+                run: createSpy('run') as any
+            } as Command;
+
+            dispatcher = new Dispatcher([helpCommand], {
+                prefix: 'myprefix',
+                botToken: null
+            });
+        })
+
+        it ('falls back on help command when no matching command was found', () => {
+            const message = {
+                content: 'myprefix some-non-existing-command'
+            } as Message;
+
+            dispatcher.dispatch(message);
+            expect(helpCommand.run).toHaveBeenCalledWith(message, []);
+        });
+
+        it ('falls back on help when nothing else than bot prefix was given', () => {
+            const message = {
+                content: 'myprefix'
+            } as Message;
+
+            dispatcher.dispatch(message);
+            expect(helpCommand.run).toHaveBeenCalledWith(message, []);
+        });
+
+    })
 
     it ('exception is thrown when invalid command is given and no help command is registered', async () => {
 
