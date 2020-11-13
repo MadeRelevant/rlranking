@@ -16,8 +16,12 @@ import {AddCommand} from "./src/command/add.command";
         botToken: process.env.BOT_TOKEN,
 
         // Prefix that all commands should start with
-        prefix: process.env.BOT_PREFIX
+        prefix: process.env.BOT_PREFIX,
+
+        mongoUri: process.env.MONGO_URI
     });
 
+    console.log("Starting application");
     await bot.init();
+    console.log("Up and running");
 })();

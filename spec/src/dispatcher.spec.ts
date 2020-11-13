@@ -135,4 +135,7 @@ describe('dispatcher', () => {
         }
     });
 
+    it ('starts and stops typing to indicate a command is running');
+
+    it ('stops typing even when the command causes an error');
 })

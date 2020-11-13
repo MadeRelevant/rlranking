@@ -2,6 +2,7 @@ import {ApplicationConfig} from "./application/config";
 import {Dispatcher} from "./dispatcher";
 import {container} from "tsyringe";
 import {Bot} from "./bot";
+import {Database} from "./database";
 
 export class Application {
     private bot: Bot;
@@ -19,8 +20,9 @@ export class Application {
 
     public async init()
     {
-        await this.bot.init();
-
-        // TODO init mongo db connection etc
+        return Promise.all([
+            this.bot.init(),
+            container.resolve(Database).init()
+        ]);
     }
 }

@@ -28,7 +28,15 @@ export class Dispatcher {
             throw new Error("Command not recognized and help command was not registered.. Application seems to have a misconfiguration")
         }
 
-        await command.run(msg, args);
+        msg.channel.startTyping();
+
+        try {
+            await command.run(msg, args);
+        } catch (e) {
+            console.warn("Failed to run command: ", e);
+        }
+
+        msg.channel.stopTyping(true);
     }
 
     private isPrefixMatching(parts: string[]): boolean {
