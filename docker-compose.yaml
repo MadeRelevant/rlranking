@@ -18,7 +18,7 @@ services:
     networks:
       - public
     ports:
-      - "27017:27017"`
+      - "27017:27017"
 networks:
   public:
     driver: bridge

@@ -1,4 +1,5 @@
 import {Document} from "mongoose";
+import {MatchOutcome} from "../service/match.service";
 
 export interface Match extends Document {
     _id: String,
@@ -6,6 +7,6 @@ export interface Match extends Document {
     created: Date,
     createdByUserId: string,
     opponentUserId: string,
-    outcome: String,
-    score: String
+    outcome: MatchOutcome,
+    score: string
 }

@@ -5,12 +5,13 @@ import "dotenv-defaults/config"
 import {container} from "tsyringe";
 import {ShowCommand} from "./src/command/show.command";
 import {AddCommand} from "./src/command/add.command";
+import {MatchesCommand} from "./src/command/matches.command";
 
 (async () => {
-
     container.register("commands", {useClass: HelpCommand});
     container.register("commands", {useClass: ShowCommand});
     container.register("commands", {useClass: AddCommand});
+    container.register("commands", {useClass: MatchesCommand});
 
     const bot = new Application({
         botToken: process.env.BOT_TOKEN,

@@ -12,8 +12,7 @@ export class Bot {
         this.client = new Client();
     }
 
-    public async init()
-    {
+    public async init() {
         return new Promise((resolve, reject) => {
             this.client.on('ready', () => {
                 console.log(`Logged in as ${this.client.user.tag}!`);
@@ -47,6 +46,14 @@ export class Bot {
             mention = mention.slice(1);
         }
 
+        return this.getUserById(mention);
+    }
+
+    public async getUserById(mention: string): Promise<User | null> {
         return this.client.users.cache.get(mention) || await this.client.users.fetch(mention);
+    }
+
+    public mention(userId: string) {
+        return `<@${userId}>`;
     }
 }
