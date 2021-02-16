@@ -7,6 +7,7 @@ import {ShowCommand} from "./src/command/show.command";
 import {AddCommand} from "./src/command/add.command";
 import {MatchesCommand} from "./src/command/matches.command";
 
+
 (async () => {
     container.register("commands", {useClass: HelpCommand});
     container.register("commands", {useClass: ShowCommand});
